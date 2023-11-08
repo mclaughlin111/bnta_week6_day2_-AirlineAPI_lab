@@ -1,7 +1,11 @@
 package com.example.airline_api.controllers;
 
+import com.example.airline_api.models.BookingDTO;
 import com.example.airline_api.models.Flight;
+import com.example.airline_api.models.Passenger;
+import com.example.airline_api.models.PassengerDTO;
 import com.example.airline_api.repositories.FlightRepository;
+import com.example.airline_api.services.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +34,18 @@ public class FlightController {
 
     // Add details of a new flight
     @PostMapping
-    public ResponseEntity<Flight> addNewFlight(){
-        return null;
+    public ResponseEntity<Flight> addNewFlight(@RequestBody Flight flight){
+        flightRepository.save(flight);
+        return new ResponseEntity<>(flight, HttpStatus.CREATED);
     }
 
     // Book passenger on a flight
     @PatchMapping(value = "/{id}")
-    public ResponseEntity<Flight> addPassengerToFlight(){
-        return null;
+    public ResponseEntity<Flight> addPassengerToFlight(@PathVariable Long bookingId, @RequestBody BookingDTO bookingPassenger){ // why can't this just be passing an INT for passenger id? 
+
+        Flight saveFlight = FlightService.bookPassenger(bookingId, bookingPassenger);
+
+        return new ResponseEntity<>(saveFlight, HttpStatus.OK); // patch mapping delivers updated version of what you've just created
     }
 
     // Cancel flight
