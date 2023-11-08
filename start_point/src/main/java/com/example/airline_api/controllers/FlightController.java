@@ -24,7 +24,14 @@ public class FlightController {
 
     // Display all available flights
     @GetMapping
-    public ResponseEntity<List<Flight>> getAllFlights(){
+    public ResponseEntity<List<Flight>> getAllFlightsWithFilters(@RequestParam(required = false, name = "destination") String destination){
+
+        //GET flights by destination
+        if(destination != null){
+            return new ResponseEntity<>(flightService.findAllFlightsByDestination(destination), HttpStatus.OK);
+        }
+
+        //GET all flights
         return new ResponseEntity(flightRepository.findAll(), HttpStatus.OK);
     }
 
@@ -53,7 +60,7 @@ public class FlightController {
     // Cancel flight
     @DeleteMapping(value = "/{id}")
     public ResponseEntity cancelFlight(@PathVariable Long id){
-        
+
         flightService.deleteFlight(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }

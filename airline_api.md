@@ -14,8 +14,7 @@ Design and build an API with the same CRUD functionality as the CLI project. The
 
 The `flights` table will have columns for:
 
-- `id`
-- `destination`
+- `id`- `destination`
 - `capacity`
 - `departureDate`
 - `departureTime`
