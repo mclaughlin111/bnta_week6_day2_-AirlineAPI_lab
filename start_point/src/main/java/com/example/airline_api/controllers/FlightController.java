@@ -19,6 +19,8 @@ public class FlightController {
 
     @Autowired
     FlightRepository flightRepository;
+    @Autowired
+    FlightService flightService;
 
     // Display all available flights
     @GetMapping
@@ -41,17 +43,19 @@ public class FlightController {
 
     // Book passenger on a flight
     @PatchMapping(value = "/{id}")
-    public ResponseEntity<Flight> addPassengerToFlight(@PathVariable Long bookingId, @RequestBody BookingDTO bookingPassenger){ // why can't this just be passing an INT for passenger id? 
+    public ResponseEntity<Flight> addPassengerToFlight(@PathVariable Long id, @RequestBody BookingDTO bookingPassenger){ // why can't this just be passing an INT for passenger id?
 
-        Flight saveFlight = FlightService.bookPassenger(bookingId, bookingPassenger);
+        Flight saveFlight = flightService.bookPassenger(id, bookingPassenger);
 
         return new ResponseEntity<>(saveFlight, HttpStatus.OK); // patch mapping delivers updated version of what you've just created
     }
 
     // Cancel flight
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity cancelFlight(){
-        return null;
+    public ResponseEntity cancelFlight(@PathVariable Long id){
+        
+        flightService.deleteFlight(id);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
 }

@@ -6,7 +6,9 @@ public class BookingDTO {
 
     private Long passengerId;
 
-    public BookingDTO(){}
+    public BookingDTO(){
+
+    }
 
     public Long getPassengerId() {
         return passengerId;
