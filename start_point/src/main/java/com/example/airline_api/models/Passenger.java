@@ -24,6 +24,7 @@ public class Passenger {
 
     @ManyToMany
     // Join as in Chocolates table
+    //practically, this many to many Join doens't matter if it's on Passenger or Flight...
     @JoinTable(
             name = "passengers_flights",
             joinColumns = @JoinColumn(name = "passenger_id"),

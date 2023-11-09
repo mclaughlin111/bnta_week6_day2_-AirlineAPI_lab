@@ -62,7 +62,7 @@ public class FlightController {
     public ResponseEntity cancelFlight(@PathVariable Long id){
 
         flightService.deleteFlight(id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        return new ResponseEntity<>(id, HttpStatus.NO_CONTENT);
     }
 
 }

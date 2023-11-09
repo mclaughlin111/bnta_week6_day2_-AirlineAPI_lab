@@ -31,6 +31,8 @@ public class FlightService {
 
         Passenger passengerToAdd = passengerRepository.findById(passengerId.getPassengerId()).get();
         flightToAdd.addPassenger(passengerToAdd);
+        flightRepository.save(flightToAdd); // Line added after solution review, not sure if needed 100%
+
         return flightToAdd;
     }
 
